@@ -21,4 +21,8 @@ public class FileAccess {
         return new File(path);
     }
 
+    public Folder getFolder(){
+        return new Folder(new File(path));
+    }
+
 }
