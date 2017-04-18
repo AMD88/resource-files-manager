@@ -42,5 +42,5 @@ public abstract class MemoryManagement implements Runnable {
             t.start ();
         }
     }
-    public abstract int syncSave();
+    public abstract int asyncmemorymanagement();
 }
