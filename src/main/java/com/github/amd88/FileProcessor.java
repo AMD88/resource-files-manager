@@ -12,13 +12,26 @@ import java.io.IOException;
  */
 public class FileProcessor {
 
-    public BufferedImage resizeImage(File imageName, int size) throws IOException {
-       // return imageName.length();
-        Image image = ImageIO.read(imageName);
+    /* Would resize the image with given width and height */
+
+    public File resizeImage(File inputImage, int dWidth, int dHeight, String pathname,String formatName) throws IOException {
+        Image image = ImageIO.read(inputImage);
         BufferedImage buffered = (BufferedImage) image;
-        return scale(buffered,200,200);
+        File outputfile = new File(pathname);
+        ImageIO.write(scale(buffered,dWidth,dHeight), formatName, outputfile);
+        return outputfile;
 
     }
+
+    /* This image resize function would get default parameter for pathname and file format name */
+
+    public File resizeImage(File inputImage, int dWidth, int dHeight) throws IOException {
+        String fileName = inputImage.getName();
+        String filePath = inputImage.getCanonicalPath();
+        String extension = getFileExtension(fileName);
+        return resizeImage(inputImage,dWidth,dHeight,filePath,extension);
+    }
+
 
     public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
         BufferedImage scaledImage = null;
@@ -33,4 +46,14 @@ public class FileProcessor {
         return scaledImage;
     }
 
+    public static String getFileExtension(String fileName){
+        String extension = "";
+
+        int i = fileName.lastIndexOf('.');
+        if (i > 0) {
+            extension = fileName.substring(i+1);
+
+        }
+    return extension;
+}
 }
